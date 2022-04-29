@@ -1,0 +1,276 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Analytic Programmer</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tyler Russell">
+
+		<link rel="stylesheet" href="./theme/css/foundation.css" />
+		<link rel="stylesheet" href="./theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="./theme/css/custom.css" />
+
+
+		<script src="./theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Analytic&nbsp;Programmer</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href=".">Home</a></li>
+						<li><label>Categories</label></li>
+							<li class="active"><a href="./category/articles.html">articles</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="https://www.python.org/">Python.org</a></li>
+							<li><a href="https://numpy.org/">NumPy</a></li>
+							<li><a href="https://scipy.org/">SciPy</a></li>
+							<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+
+
+
+						<li><label>Social</label></li>
+							<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+							<li><a href="https://github.com/Nightwing52">github</a></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="./">Analytic Programmer</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li class="active"><a href="./category/articles.html">articles</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/About.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/Contact.html">Contact</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>Newton Basins</h2>
+	<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+<h1>Newton Basins</h1>
+<h2>Finding Zeros and Newton's Method</h2>
+<p>Since high school, we are taught to find the zeros of functions. In other words, we want to solve the following equation.
+</p>
+<div class="math">$$f(x)=0 $$</div>
+<p>
+More often than not, this cannot be done by hand. If we are interested in approximate answers, which occurs often in practical applications, we can use <strong>Newton's method</strong>. Newton's method takes a starting point <span class="math">\(x_0\)</span> and attempts to find a zero using the function <span class="math">\(f\)</span> and its derivative <span class="math">\(f'\)</span> by iterating as follows,
+</p>
+<div class="math">$$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)} . $$</div>
+<p>
+There are problems if <span class="math">\(f'(x_n)=0\)</span>, the sequence encounters a fixed point, or the sequence enters a cycle. Generally speaking, if one starts close to a root, then you are guaranteed to converge (with quadratic convergence). We can also generalize this to complex valued functions <span class="math">\(f(z)\)</span> by the same rule.
+</p>
+<div class="math">$$z_{n+1}=z_n-\frac{f(z_n)}{f'(z_n)}$$</div>
+<h2>Newton Basins</h2>
+<p>If you start close to a root, you are guaranteed to converge, but what if you are not near any root of the function? This is not a trivial question. Arthur Cayley was the first to realize the complexity of this question. </p>
+<p>Take the function <span class="math">\(f(z)=z^3-1\)</span>. The three zeros of this function are <span class="math">\(1\)</span>, <span class="math">\(e^{i2\pi/3}\)</span>, and <span class="math">\(e^{i4\pi/3}\)</span>. For every point on the complex plane, we are going to color the point pink if it tends to <span class="math">\(1\)</span> under Newton's method, red for <span class="math">\(e^{i2\pi/3}\)</span>, and green for <span class="math">\(e^{i4\pi/3}\)</span>. The image we get is a <strong>fractal</strong>. </p>
+<p><img src="https://lh3.googleusercontent.com/FgV_oXZ6Xehta6d4kvm1UBOrxYMOK4zhVBdstfZvc3Kp07jt6PbnsanoHE-9pqBKtYE7PdWZOY_NooncyEELU8PNRqh29ctfHK0kh5u86_5lJl3PsHgOnjJBjfSIi17Mis9JoSBhHmQx96XNFWrj4LWWyEgu6N6FR9D0hlEut7nEvhxkG1wdNQpFJmP7hcR5bKWfaB0uhF_g9EOWMwqe7J4wsRYTDf1FjZHsy8f-MIXjdOsvHcfo2r4emXbg1YZaQm-njjXTYanYVYRUL7xJmiU378oV6p1ITOb0ug3DnYz_77aksTSdslf8qa-Se1dlV_rPQWK7uD9P_t1zZyCbAtBW36h5qO9sGIBRQv215LVPQOQV26q3il5l_1TC3O_4TtcmE_DreyVRo21bjLa4SVBG3E0gIDFxDYMAGzftjMi8NpGCBnGctNgex6xogbwMz4dmkbNG9UJ-zvzgX2eeyCLr15XG8lrqkrxXZkdNP9QhQoDtNPwr4tvoPTHEtAWUy6EMjEkF8eQaeYHlEv2zeaqdmo8YdAe749k-5a3Pz9omxCVX8DC_p0MM8fxH1MN3iNv9nXGUSm_1t3CwFOdaa3BXYiEc3vgMthVxNz06Kp9BvGkB9pDEI75G_2qZHoq_ECQCkuGxNW-0OYbcvqXO6nXtWUW7I0rh3JIhAq3RfqOiCYGmwVP9EpFvwroPpHBZ-EjxlLGjzz3VEtsEj4UWocOL=s512-no?authuser=0" alt="Newton basin associated with z^3-1." class="center" width="400" height="400"></p>
+<p>This means that the overall shape of the figure appears the same no matter the magnification. If you were given a random magnification, you would not be able to discern your absolute location (or narrow it down in the slightest). We can also do something similar for the function <span class="math">\(f(z)=z^4-1\)</span> and get the following image.</p>
+<p><img src="https://lh3.googleusercontent.com/Yg0s-unRyrXJJbnWozK39BpvPpDwP6dFtS33brKgAhTOIIOWtrjUD7TGCV--dCDi5cDRR-sQMz7iVm2WeMl3Mubd2_pyI5wa808z9gGczn61oufaAgPK0aOmNyDpZej-KaaimffVwLjkNc1AvlcV58QMbR4dR9lsdXU7yV3kP74JKdGDREyKoB_9bhrhi9fMIpA8uUFGXLTmSfQTqr9JLmXdYeI5mPTWE3O_R84uXGK1RHvAISMc9zluOqPixDscMzPVs19GZ2OYBByyXJYcdyTAT3MnLMjroX4hXisnSw3nUI2nkYnxTn9GFFQkcNZLdgBUh7lxi1uAGgipZddkKr1ep56RJyARl-oymDgfWrSKM9v-Hbqm8TJeJZJLVvSZD9JnkVUQ6w7FqF1BzU9-0gLNeW2-faoQ55k4XlI1pBTtPz45vuTvlFg7PKWH9ElM-mVjswvE24uefKUiuc1fShRGo6jOtTuOo9mVjsD1KQfGiakYBpvuwKr8uw6Gpdr_ks7hmVi8X2Vn8v270OsAfulS5EmnvZjb0xxZ7LSkjOGQMzhKx6KelCsgbmoN_H2pCSnS7Peq8miZCi2JIevFyZD9WQCsxxcKDhtPvCGqUCGJ4S31D7SxLlPrRuAgXMcMjaAADqYA6Civ0h9NE9ZI_DmC-QwLfPt8ocEBtkWzDSzICMQxomksihKEo6_9LyJ75YJOHEW0xK2dUxtxJy1NYwEC=s639-no?authuser=0" alt="z^4-1" class="center" width="400" height="400"></p>
+<p>Polynomials of the form <span class="math">\(f(z)=z^n-1\)</span> will always give the cyclic patterns with each root of unity having its own region separated by a complicated boundary. Other polynomials give even more interesting shapes. This <a href="https://mathcs.clarku.edu/~djoyce/newton/examples.html">site</a> has some interesting examples. Here we have the fractal associated with the polynomial <span class="math">\((z^4-1)( z^2-(1+i)^2)\)</span>.</p>
+<p><img src="https://mathcs.clarku.edu/~djoyce/newton/newton6.gif" alt="Newton basin associated with (z^4-1)(z^2-(1+i)^2)." class="center" width="400" height="400"></p>
+<p>These fractals are also an example of <strong>chaotic</strong> behavior. This means that knowing what happens at a single point does not tell much about what happens in the small disk surrounding it. If I tell you the point <span class="math">\(p\)</span> tends to <span class="math">\(q\)</span>, then I cannot make a prediction about what happens when I add a small perturbation <span class="math">\(p+\gamma\)</span>. </p>
+<h2>Code</h2>
+<p>Although these patterns are very complex (no pun intended), they are actually easy to generate in practice. </p>
+<div class="highlight"><pre><span></span><code>    <span class="n">roots</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span> <span class="n">of</span> <span class="n">roots</span><span class="p">)</span>
+
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="n">rooti</span> <span class="o">-&gt;</span> <span class="n">colori</span> <span class="p">}</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="p">[</span><span class="n">matrix</span> <span class="n">of</span> <span class="n">gridpoints</span><span class="p">]</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">matrix</span> <span class="n">same</span> <span class="n">size</span> <span class="k">as</span> <span class="n">grid</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">num_iter</span> <span class="o">&lt;</span> <span class="n">max_iter</span><span class="p">:</span>
+        <span class="n">iterate</span> <span class="n">every</span> <span class="n">point</span>
+        <span class="n">num_iter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">for</span> <span class="n">every</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">converge</span><span class="p">:</span>
+            <span class="n">image</span><span class="p">[</span><span class="n">point</span><span class="p">]</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">root</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">image</span><span class="p">[</span><span class="n">point</span><span class="p">]</span> <span class="o">=</span> <span class="n">black</span>
+</code></pre></div>
+
+<p>Lastly, feel free to try modifications to this process. For example, if you put a complex number <span class="math">\(c\)</span> in the iteration <span class="math">\(f(x_{n+1})=x_n-c \cdot f(x_n)/f'(x_n)\)</span>, we can change the Newton basin. This is what happens for <span class="math">\(f(x)=x^3-1\)</span> with <span class="math">\(c=(1/2)+(1/2) i\)</span>. One can also try transcendental functions, step-dependent changes, etc. The possibilities are endless.</p>
+<p><img src="/images/newton_basin.png" alt="Deformed Newton basin." class="center"></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+	<hr/>
+	<h6>Written by <a href="./author/tyler-russell.html">Tyler Russell</a> in <a href="./category/articles.html">articles</a> on Wed 25 August 2021.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="https://www.python.org/">Python.org</a></li>
+									<li><a href="https://numpy.org/">NumPy</a></li>
+									<li><a href="https://scipy.org/">SciPy</a></li>
+									<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+									<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+									<li><a href="https://github.com/Nightwing52">github</a></li>
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="./theme/js/jquery.js"></script>
+		<script src="./theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,260 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Analytic Programmer</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tyler Russell">
+
+		<link rel="stylesheet" href="./theme/css/foundation.css" />
+		<link rel="stylesheet" href="./theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="./theme/css/custom.css" />
+
+
+		<script src="./theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Analytic&nbsp;Programmer</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href=".">Home</a></li>
+						<li><label>Categories</label></li>
+							<li class="active"><a href="./category/articles.html">articles</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="https://www.python.org/">Python.org</a></li>
+							<li><a href="https://numpy.org/">NumPy</a></li>
+							<li><a href="https://scipy.org/">SciPy</a></li>
+							<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+
+
+
+						<li><label>Social</label></li>
+							<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+							<li><a href="https://github.com/Nightwing52">github</a></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="./">Analytic Programmer</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li class="active"><a href="./category/articles.html">articles</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/About.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/Contact.html">Contact</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>Turing Patterns</h2>
+	<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+<h1>Turing Patterns</h1>
+<p>This post was inspired by the tutorial at this <a href="http://karlsims.com/rd.html">site</a>. </p>
+<h2>Patterns in Nature</h2>
+<p>Patterns like zebra stripes and cheetah print appear a lot in nature. They are beautiful patterns that display regularity. An interesting question is this: how do these patterns occur on a chemical basis?</p>
+<p><img src="https://ychef.files.bbci.co.uk/976x549/p07smycy.jpg" alt="Zebras." class="center" width="90%"></p>
+<h2>Models</h2>
+<p><strong>Alan Turing</strong> was the first to model this kind of phenomenon. For this, the patterns that come out of these models are called <strong>Turing patterns</strong> in his honor. We imagine that the patterns are correlated to the amount of some chemical. For any initial distribution, if we allowed the chemical to diffuse, then the final state of the system would be rather boring. Only allowing diffusion does not give rise to interesting behavior. We need something more.</p>
+<p>In our models, we will assume that there are two chemicals called <span class="math">\(A\)</span> and <span class="math">\(B\)</span>. They will diffuse, but also interact with one another. The chemicals need to interact to give the interesting behavior we want. </p>
+<p>We are going to use the <strong>Gray-Scott model</strong>. As mentioned, both <span class="math">\(A\)</span> and <span class="math">\(B\)</span> will diffuse. They may diffuse at different rates however, so this gives a diffusion term <span class="math">\(D_A\nabla A\)</span> for <span class="math">\(A\)</span> and <span class="math">\(D_B\nabla B\)</span> for <span class="math">\(B\)</span>. In the reaction, <span class="math">\(A\)</span> and <span class="math">\(B\)</span> combine in a <span class="math">\(1:2\)</span> ratio to produce <span class="math">\(B\)</span>. At a molecular level, one could imagine that one molecule of <span class="math">\(A\)</span> combines with two molecules of <span class="math">\(B\)</span> to create three molecules of <span class="math">\(B\)</span>. This gives <span class="math">\(-AB^2\)</span> for <span class="math">\(A\)</span> and <span class="math">\(+AB^2\)</span> for the reaction term. They must be equal and opposite to preserve mass. Chemical <span class="math">\(A\)</span> gets introduced at a certain rate <span class="math">\(f\)</span> and chemical <span class="math">\(B\)</span> gets killed off at a certain rate <span class="math">\(k\)</span>. This gives the following system of partial differential equations.
+</p>
+<div class="math">$$
+\begin{align*}
+\frac{dA}{dt} &amp; = D_A\nabla A - AB^2 + (1-f)A \\
+\frac{dB}{dt} &amp; = D_B\nabla B + AB^2 -(k+f)B
+\end{align*}$$</div>
+<p>Where the last terms are scaled as such to make sure both chemicals remain in the interval <span class="math">\([0, 1]\)</span> at every point. </p>
+<h2>Simulation</h2>
+<p>For our simulation, we will use <span class="math">\(D_A = 1.0\)</span>, <span class="math">\(D_B=0.5\)</span>, <span class="math">\(f=0.0545\)</span>, and <span class="math">\(k =  0.062\)</span>. We solve the system on a unit square where a drop of <span class="math">\(B\)</span> is deposited just off the center. Placing the drop off-center ensures the final pattern is asymmetric. The before and after evolution is shown below.</p>
+<p><img src="https://lh3.googleusercontent.com/c_vaeFvoXd9PZVo78_CCJlTwIxy8S3tNyKz0uqBX1J_GgXCPTY4tXzw6gSFm3f3bfFsOZTrq-D_IjHSnIpw6KP8gfJCkeqDkia4k5uJWfO_XF2GOiup4xMUHE-LJBPashWit9GOJVpy4fwjprIfuluz8WBflOO8J3i4Yu0k28Nu0PbOhoSs3j8iTe1GqrIwbbNny2X2OinZo29QoMVGN8DnAdbdHbzG8r0g4hg3VkJuOzYCuoCp7R18lNy580CU0ByhyEm0tHYfKOuwdQnv_QarnAAwCQqyEq6oLlkiXJqNqIaK33rK4WSTtA1eSuzVFk84GyIm48k0tKbdpZlRmIGv15i_jaInOMptp-gdOI1shhyPvmHGGusKSTBdy6_V3CX3D0K2F4pFdWMOFuv3W7xXDsdY9Iargz45ra2wzxF7vh1XvJRs64zGn3MEL3hbUY4cmBMAG2qb5F0aShh-ScXDItmOEuorx2dX6b8Qw2ro4erMxzJ9RUb0xly4Gl4lJ8wlTVzA-cqvweuZVs6zcX-8f99AFqiu5s_HmD8bS6oblVfCg9_rABrn_ZsTP4RQkVnDXpBH3GXvMMTQJ3_EODwmXAy8zH3ll9AVOZ0u1GmiarPaPGobFkNqVew9K4U5W8vlb-7oGgxAP_T_UtoPXcozHJEGnAV6xdfSSPIqPxAvhAaGIYvpQlcQTU0kunSAFEBsvxeLqeT5ZrKLjDPj28Ip-=w1136-h639-no?authuser=0" alt="Before and after simulation." class="center" width="90%"></p>
+<p>Where red represents a strong presence of <span class="math">\(A\)</span> while darker colors represent less <span class="math">\(A\)</span>. More interesting than the before and after is the time evolution shown <a href="https://youtu.be/_XZI1Tx1FiU">here</a>.</p>
+<iframe width="90%" height="420" 
+src="https://www.youtube.com/embed/_XZI1Tx1FiU" class="center">
+</iframe>
+
+<h2>Exploration</h2>
+<p>This is really just the beginning of Turing patterns. One can add more chemicals, change the initial conditions, have location dependent diffusion, different surfaces for the flow and so much more. Even changing the feed rates can result in a completely different end result. If it is something you are interested in, you should definitely play around with it. A good starting point can be found at my dynamical systems <a href="https://github.com/Nightwing52/dynamical_systems">repository</a> under the <em>turing_patterns</em> folder.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+	<hr/>
+	<h6>Written by <a href="./author/tyler-russell.html">Tyler Russell</a> in <a href="./category/articles.html">articles</a> on Wed 25 August 2021.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="https://www.python.org/">Python.org</a></li>
+									<li><a href="https://numpy.org/">NumPy</a></li>
+									<li><a href="https://scipy.org/">SciPy</a></li>
+									<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+									<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+									<li><a href="https://github.com/Nightwing52">github</a></li>
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="./theme/js/jquery.js"></script>
+		<script src="./theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>

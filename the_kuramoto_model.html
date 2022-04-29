@@ -1,0 +1,272 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Analytic Programmer</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tyler Russell">
+
+		<link rel="stylesheet" href="./theme/css/foundation.css" />
+		<link rel="stylesheet" href="./theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="./theme/css/custom.css" />
+
+
+		<script src="./theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Analytic&nbsp;Programmer</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href=".">Home</a></li>
+						<li><label>Categories</label></li>
+							<li class="active"><a href="./category/articles.html">articles</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="https://www.python.org/">Python.org</a></li>
+							<li><a href="https://numpy.org/">NumPy</a></li>
+							<li><a href="https://scipy.org/">SciPy</a></li>
+							<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+
+
+
+						<li><label>Social</label></li>
+							<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+							<li><a href="https://github.com/Nightwing52">github</a></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="./">Analytic Programmer</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li class="active"><a href="./category/articles.html">articles</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/About.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/Contact.html">Contact</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>The Kuramoto Model</h2>
+	<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+<h1>The Kuramoto Model</h1>
+<p>This post was inspired by Steven Strogatz's talk <a href="https://www.youtube.com/watch?v=e5xxdNeNkmE&amp;t=2787s">here</a>.</p>
+<h2>Oscillators</h2>
+<p>Oscillation plays a very important role in physics and how we understand the world. From simple harmonic motion, to chemical reactions, to neuroscience, to Josephson junctions, they appear everywhere. One phenomenon which has gained a lot of attention over the years is that of  <strong>coupled oscillators</strong>. An intricate system of individual oscillators, if coupled properly, can produce synchronous behavior. One instance of this is found in <a href="https://www.youtube.com/watch?v=ZGvtnE1Wy6U">fireflies</a>. </p>
+<p><img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-690410254-594x594-1583518830.jpg" alt="Fireflies sychronizing in the Great Smoky Mountains." class="center" width="90%"></p>
+<h2>The Kuramoto Model</h2>
+<p>How does this complex phenomenon occur and how can we model it? Perhaps the most well known model is the <strong><a href="https://en.wikipedia.org/wiki/Kuramoto_model">Kuramoto model</a></strong> developed by physicist Yoshiki Kuramoto in the early 70s. The basic idea of the Kuramoto model is this: assume we have a group of similar oscillators that are weakly coupled. Each oscillator will change its phase based on the sine of the phase difference between each of the oscillators it is connected to. It is helpful to think of a pair of runners. If one runner is fast while the other is slow, then the faster runner can slow down while the slower runner speeds up. Note here that if the coupling was too strong or too weak, then the runners may overshot or undershot their targets. </p>
+<p>How do we capture this idea in mathematical symbols? Assume we have <span class="math">\(N\)</span> oscillators. Each oscillator has a natural frequency <span class="math">\(\omega_i\)</span>. Let <span class="math">\(A\)</span> be an <span class="math">\(N \times N\)</span> matrix with elements <span class="math">\(a_{ij}\)</span> that is one if oscillator <span class="math">\(i\)</span> is connected to oscillator <span class="math">\(j\)</span>. This matrix is symmetric. The rate of change of a given oscillator is given by the sum of the sine of the phase difference between coupled oscillators. We obtain the system below.</p>
+<div class="math">$$\frac{d\theta_i}{dt} = \omega_i + \sum_{j=1}^N a_{ij}\sin(\theta_j-\theta_i),  \quad (1 \leq i \leq n) $$</div>
+<p>One assumption that is made quite often is that all oscillators have the same natural frequency. This means we can do a change of variable <span class="math">\(\hat{\theta_i} = \theta_i - \omega_i t\)</span> to yield the following simplification,</p>
+<div class="math">$$\frac{d\hat{\theta_i}}{dt} = \sum_{j=1}^N a_{ij}\sin(\hat{\theta_j}-\hat{\theta_i}),  \quad (1 \leq i \leq n)  .$$</div>
+<p>There are plenty of modifications that can be made to this system. For example, heterogeneous weights, noise,  different natural frequencies, etc. These modifications have been studied, but generally make things harder to analyze. </p>
+<h2>When does synchronization happen?</h2>
+<p>In the model described in the last section, <strong>synchronization</strong> occurs when the oscillators reach similar phases after a sufficiently long time. In our <span class="math">\(\hat{\theta}\)</span> representation, this means they all go to the same value modulo <span class="math">\(2\pi\)</span>. If this occurs for all initial conditions, then the graph associated with the system is said to be <strong>globally synchronizing</strong>. The question we are interested in is then, "when is a graph globally synchronizing?" </p>
+<p><img src="https://lh3.googleusercontent.com/MUhfq_IlCzmiTs4VlXvjan4D4p7cZHUflwQqM8pZ-IoVvT5u5wX_aHxfogTDrce1V9ZsR1v3aHwi5Mm2lQfYrpi8MDpj2DktMqHXAwSWbgvw76AuFe8ykl86rP88TMiCdtjgag4RUZyHcEDyhRooeM9jxCRjGaQi1JLB_i8VPQFActLjR571RfpyTQht7f5bmYAX2j49QULjhpV8_PonN7qYidj7X-zO5IBGHM2bzHtzdAviaH7DU8Gwes6js4YwAL0fes2ifVxEdCeQUGKd2POCJOcjWpXpv5kJN3egUw9_DQGKTTxYjoYYsbpMKUC8nCcSajcJDgHCjPqueHsLkIX06Dp6eHMjTbp-3ygxRz-jCCZo_A0WMP9uyEJrRwr-4Y0aDMkeH6npR-cl4CMshScNtXPC94YwQtWEDUb_GCfJsuPZ9xdZESd28dWvV3SCHRREFilGKokVgV1CbjBuUEKanU6C9rY3ObGaMWifr97fUkyxbS7kivLEKvmY4n4e_xb4-UmNSM2TmWH6BflqqlEnF2Pg6rfB3vY2dFcoEcOMo-AAjeI-rUndZF2ob5DXdauuYAsebI52Fy0MDfOSW6gdg1oAX3aH6qeSVHSFVbRMwS03bj7IBhY5-UBHtsiYuTFWy2yC_V2y6fzj-cooJRUFaw_K18igVIL_hP_NUEC37Cy_ID5DhR1UwKKyyHlCRrR3A49ns-vncBFy0DOS9AGG=w512-h288-no?authuser=0" alt="Kuramoto model network." class="center"></p>
+<h2>Dynamics</h2>
+<p>A globally synchronizing system must then have all of its fixed points attracting. The fixed points satisfy,
+</p>
+<div class="math">$$\frac{d\hat{\theta_i}}{dt} = \sum_{j=1}^N a_{ij}\sin(\hat{\theta_j}-\hat{\theta_i}) = 0,  \quad (1 \leq i \leq n)  .$$</div>
+<p> 
+Now note that this system is a gradient system, which means every initial condition will end up at a fixed point. However, we need to ensure every fixed point is attracting and not a saddle to ensure global synchronicity. This often involves analysis of the Jacobian.
+</p>
+<div class="math">$$J_{jk} = \begin{cases} \quad \quad \quad a_{jk}\cos(\hat{\theta_k}) &amp; , j \not= k \\
+-\sum_{s=1}^N a_{js} \cos(\hat{\theta_s}-\hat{\theta_j}) &amp; , j=k \end{cases} $$</div>
+<p>
+The Jacobian is symmetric, which means the eigenvalues are all real. Thus, we do not get any oscillation in the <span class="math">\(\hat{\theta}\)</span> representation of the system. </p>
+<h2>Global Synchronization</h2>
+<p>As mentioned before, we are interested on what conditions we can impose to ensure a graph is globally synchronizing. Generally speaking, if a graph <span class="math">\(G\)</span> is sufficiently dense, then it is globally synchronizing. How dense does it have to be? In 2012, Richard Taylor proved that if the degree <span class="math">\(\delta(G) &gt; 0.93(|G|-1)\)</span>, then the graph globally syncronizes. This upper bound was improved by Ling, Xu, and Bandeira in 2018 to <span class="math">\(\delta(G) &gt; 0.7929(|G|-1)\)</span>. What about the lower end? In 2006, Wiley, Strogatz, and Girvan proved that there exists a sequence of regular graphs that do not globally synchronize such that
+</p>
+<div class="math">$$\lim_{n \to \infty} \frac{\text{degree of vertices}}{n-1} = 0.6809 \dots .$$</div>
+<p>This means there is a sort of unknown middle ground. After the upper bound, you are guaranteed to synchronize and below the lower bound there exists graphs that do not synchronize, but the in-between area presents a lot of difficulties. </p>
+<h2>Conclusion</h2>
+<p>Oscillators are incredibly important in the sciences, and we still have so much to learn. They appear in our nervous system, physical systems, and even nature. Coupled oscillators are also interesting from a mathematical point of view, because they test our ability to make sense of larger high dimensional systems.</p>
+<p>Lastly, I think it is fun to actually look at these systems and play around with them. I have coded up a basic animation of the Kuramoto model that can be viewed <a href="https://youtu.be/0hwj-PcWod0">here</a> and downloaded via <a href="https://github.com/Nightwing52/dynamical_systems">Github</a>. </p>
+<iframe width="90%" height="420" 
+src="https://www.youtube.com/embed/0hwj-PcWod0" class="center">
+</iframe>
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+	<hr/>
+	<h6>Written by <a href="./author/tyler-russell.html">Tyler Russell</a> in <a href="./category/articles.html">articles</a> on Sat 07 August 2021.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="https://www.python.org/">Python.org</a></li>
+									<li><a href="https://numpy.org/">NumPy</a></li>
+									<li><a href="https://scipy.org/">SciPy</a></li>
+									<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+									<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+									<li><a href="https://github.com/Nightwing52">github</a></li>
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="./theme/js/jquery.js"></script>
+		<script src="./theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>

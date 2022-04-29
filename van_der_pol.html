@@ -1,0 +1,269 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Analytic Programmer</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tyler Russell">
+
+		<link rel="stylesheet" href="./theme/css/foundation.css" />
+		<link rel="stylesheet" href="./theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="./theme/css/custom.css" />
+
+
+		<script src="./theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Analytic&nbsp;Programmer</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href=".">Home</a></li>
+						<li><label>Categories</label></li>
+							<li class="active"><a href="./category/articles.html">articles</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="https://www.python.org/">Python.org</a></li>
+							<li><a href="https://numpy.org/">NumPy</a></li>
+							<li><a href="https://scipy.org/">SciPy</a></li>
+							<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+
+
+
+						<li><label>Social</label></li>
+							<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+							<li><a href="https://github.com/Nightwing52">github</a></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="./">Analytic Programmer</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li class="active"><a href="./category/articles.html">articles</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/About.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/Contact.html">Contact</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>The Van der Pol Oscillator</h2>
+	<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+<h1>The Van der Pol Oscillator</h1>
+<h2>Linear Oscillators</h2>
+<p>The <strong>simple harmonic oscillator</strong> is one of the first things a physics student learns. The differential equation that governs it is the familiar <span class="math">\(x''+\omega^2x=0\)</span>. It has an exact solution that can be interpreted very directly. If we add a forcing term <span class="math">\(F(t)\)</span>, the problem </p>
+<div class="math">$$x''+\omega^2x=F(t)$$</div>
+<p> can be solved by adding the solution to the forced solution to the solution to our original problem. This means the motion can be understood as the sum of its parts. Properties like this make it easier to understand long term behavior. Mathematicians call this property <strong>linearity</strong>. A system is linear if derivatives are at most to the first power and are not being multiplied together. For example, a term like <span class="math">\((x')^2\)</span> or <span class="math">\(xx'\)</span> would not be allowed in a linear system. This same method allows us to break the force into separate pieces and add together the individual solutions.</p>
+<blockquote>
+<p>This is an example of what is called the  <em>principle of superposition</em>  for linear systems, and it is very important. It means the following: if we have a complicated force which can be broken up in any convenient manner into a sum of separate pieces, each of which is in some way simple, in the sense that for each special piece into which we have divided the force we can solve the equation, then the answer is available for the  <em>whole</em>  force, because we may simply add the pieces of the  <em>solution</em>  back together, in the same manner as the total  <em>force</em>  is compounded out of pieces (Fig. [25–1]). - <a href="https://www.feynmanlectures.caltech.edu/I_25.html">Feynman</a> </p>
+</blockquote>
+<p><img src="https://lh3.googleusercontent.com/YSMwgrDAXEhtKgpmSZrwnGFQGFknRhpo5_jRlskox2waoUGEvBAZTzBt9_V0V-fEPfx34JV4eHotqFsO3E0v9Ug1Dzp7uXDsQ2oA5Af9LBSWY9GPF_vRxd-hoSDY2sRSt__bJhrtgyOJAJjiGoTRCb3cD4UtP62OHI-96MYB7Lz2WSkJ-RK8W1ZqvUQJ1p-iPz1jumBG_9qMtcR6o7XIIyLkozcnLxBaW_88JNLHhJgUBzTV2HMPG2V0pK41LQlBh9bUDEmerSoVvZSawNCtE7zv5r9Rgrw3J8tqAjPtujZsiFQUGSfik1r0hBSxty5o4aHiPTGzBj1bUInm8bN3KP58mHLK28VlCAMYfPUy0MNOVulaL4OIt3lA_hLC0Ibi8OuIK_K1krbllKqmUrk-4ztgDfY8r-OcXK8y3R-lAojvFr1HhH3jH4ySxxpKxTxANNvFfHRnYS4QP3xYo6DesfRqz6KkMGefOAgCriiyiRO-aozjJlNaoILXQkn0A61kp9bWGkP33MqANNWFYdmfiaRgP1Ajluw9I2nvx4t8JbNFgFTzQDJ1Bn1-r8t8quJyBDvd9dw0UwmUqWPpMKRydAr2I2tifwZqqmpBtYFdL5eAAKhzzSiAFaowPq1HMmALOh9MgQYWwF2fodfvBnTQupocpmk8AFp50mETqLeoJh136hfAaSPW3JWMdk6ht3CTiI-dUdjygd4xd973it3TYhYa=w532-h539-no?authuser=0" alt="Principle of superposition for forces." class="center"></p>
+<h2>Non-Linear Oscillators</h2>
+<p>However, not all systems in nature are modeled accurately by linear systems. Although linear systems are conceptually easier to understand, they have fundamental limitations in their ability to model more complex phenomenon. Non-linear systems are more than the sum of their parts. How can one study these systems them? This is a common question in the fields of <strong>dynamical systems</strong> and <strong>ergodic theory</strong>. We generally give up on finding exact solutions and instead try to determine long term behavior and classify where different initial conditions tend to cluster. </p>
+<h2>The Van der Pol Oscillator</h2>
+<p>In the <span class="math">\(1920\)</span>s, Dutch electrical engineer Balthasar van der Pol was working with a circuit that would eventually settle onto a single non-sinuisoidal oscillation when driven at various starting conditions. The <strong>Van der Pol oscillator</strong> is governed by
+</p>
+<div class="math">$$x''-\mu (1-x^2)x'+x=0,$$</div>
+<p>
+where <span class="math">\(x\)</span> represents voltage and <span class="math">\(\mu\)</span> represents the strength of the damping. We use <span class="math">\(x\)</span> here instead of <span class="math">\(V\)</span> because this model has also been used to study phenomenon all across physics, biology, and chemistry. </p>
+<p>For <span class="math">\(\mu=0\)</span>, we have the familiar simple harmonic oscillator. When <span class="math">\(\mu &gt; 0\)</span> the system will tend to a single cycle we call a <strong>limit cycle</strong> after a sufficiently long time. A good way to picture this phenomenon is through the concept of a <strong>phase space</strong>. A phase space is a representation of all the allowed states of a system. In our case, it is all the possible values of <span class="math">\(x\)</span> and <span class="math">\(x'\)</span>. Visually, this is just the Cartesian plane <span class="math">\(\mathbb{R}\times \mathbb{R}\)</span>. In a computer simulation, we can get an idea of what the limit cycle looks like by sampling many different initial conditions and plotting them through time. Show below is what that looks like for <span class="math">\(\mu = 0.5\)</span>. The horizontal axis depicts the <span class="math">\(x\)</span> coordinate and the vertical axis the <span class="math">\(x'\)</span> coordinate. An animation can be found <a href="https://www.youtube.com/watch?v=xGkBFTDfQkc">here</a>.</p>
+<p><img src="https://lh3.googleusercontent.com/UZ5oJbujvHVubmDNMDUX0gSLAIWefkGJqID8hgpmnPwQvHItXhCo0WFDhqPlm_fLY7anJPsVLoAarrVWTDZpZdh-fsBjggFIli435GR9bFb7sFcwqCSFRlZ1Q6ysspOak7YK0MtRn7IkTzpD4UZYMpzwBBkkV2UB_P_O4pRON6HvQDNKIqCph5kQY9t-SgIhfc0pB_HPFDox-YzHdJA3vk_1UYB7rUhEiCSMpoGAaDiFi15yHoQtZb8Lcevfei-TwX4tXspg5eyz2X-OEDSaKHY5jVn2U9YbALmvIuib3FfAVDBChIVba77DIFm_8U4gZ-0noZvD3-gc54RnfGD-1c2J2K6_wIz8evHXgpGbPIwLHVNnC5MzNU6cNDdctb3vw2aCIsaS8i6LN7a6REWNXc5-JChidHQrZUZsHm6jDFakg57mtyNobr5KHjDIM1WQuBmAnbLNOESG3Gnft4mT9SN4_s5GOC6ZXJQKPoHK8nFGCJvL1o7w8b7KPcvXAaNKX1spizDSKDOeydl1cx4N6JcIed6xmHUNyUrOmofWMpCJjZbM9jz-4y0hmFiH0faLTvkX0qEWUaELgLm1wI6ZQhi2hi3vylafdYHzogolfRFRhbQ5Zl_jczfuC22h9RAwcbG0W74LrUVDgjo-_Dndi-cuTVfaw-8sgcEKomwYkF2_s2SF7S8XwO255HWSZSErBeCt9STB5cbUFhd-fG4eBdUw=w847-h952-no?authuser=0" alt="Phase space before and after." class="center" width="90%" height="600"></p>
+<p>We call this cycle the <strong>attractor</strong> for the system. It is the structure that points in the phase space cluster towards. This allows us to make sense of systems even when we cannot write down an explicit solution.</p>
+<iframe width="90%" height="420" 
+src="https://www.youtube.com/embed/xGkBFTDfQkc" class="center">
+</iframe>
+
+<h2>Chaos</h2>
+<p>We have seen that although the Van der Pol oscillator is non-linear, it is still predictable. What if we add a forcing term like with the simple harmonic oscillator? Explicitly, we wish to know what happens with the following system
+where <span class="math">\(\mu\)</span> is the damping factor as before, <span class="math">\(A\)</span> is the amplitude of the forcing term, and <span class="math">\(\omega\)</span> the associated frequency. 
+</p>
+<div class="math">$$x''-(1-\mu^2)x'+x-A\sin(\omega t)=0,$$</div>
+<p>
+Although one might expect similar behavior, something strange happens. Simulation shows that our attractor is not as simple as before. Letting <span class="math">\(\mu=8.53\)</span>, <span class="math">\(A=1.2\)</span>, and <span class="math">\(\omega=2\pi/10\)</span> gives the following <span class="math">\(x\)</span>-<span class="math">\(t\)</span> graph.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Vanderpol_time_mu=8.53_A=1.2_T=10.svg/800px-Vanderpol_time_mu=8.53_A=1.2_T=10.svg.png" alt="Chaotic xt graph." class="center" width="90%"></p>
+<p>If we had a similar attractor to last time, then we would expect a periodic signal, but close inspection of the graph shows that this does not occur. The system is still drawn towards an attractor, but the shape is hard to describe. It is known as a <strong>strange attractor</strong> and has a <strong>fractal</strong> shape. A modified version of the above system looks like this.</p>
+<p><img src="https://www.researchgate.net/profile/Kayode-Ojo-2/publication/266067262/figure/fig1/AS:645068528570368@1530807730515/Phase-portrait-of-the-chaotic-attractor-for-the-externally-and-parametrically-excited-PH-6.png" alt="Chaotic phase space diagram." class="center" width="90%" height="500"></p>
+<p>Study of this behavior is known as <strong>chaos theory</strong> and is an exciting field of research. It tries to understand systems that are very sensitive to initial conditions. What appears random does in fact have an underlying structure, even if it is difficult to describe. Since fractals arise from our models, they are extremely important in understanding the world around us. </p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+	<hr/>
+	<h6>Written by <a href="./author/tyler-russell.html">Tyler Russell</a> in <a href="./category/articles.html">articles</a> on Wed 11 August 2021.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="https://www.python.org/">Python.org</a></li>
+									<li><a href="https://numpy.org/">NumPy</a></li>
+									<li><a href="https://scipy.org/">SciPy</a></li>
+									<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+									<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+									<li><a href="https://github.com/Nightwing52">github</a></li>
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="./theme/js/jquery.js"></script>
+		<script src="./theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>

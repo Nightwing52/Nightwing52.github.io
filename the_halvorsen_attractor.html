@@ -1,0 +1,271 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Analytic Programmer</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tyler Russell">
+
+		<link rel="stylesheet" href="./theme/css/foundation.css" />
+		<link rel="stylesheet" href="./theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="./theme/css/custom.css" />
+
+
+		<script src="./theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Analytic&nbsp;Programmer</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href=".">Home</a></li>
+						<li><label>Categories</label></li>
+							<li class="active"><a href="./category/articles.html">articles</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="https://www.python.org/">Python.org</a></li>
+							<li><a href="https://numpy.org/">NumPy</a></li>
+							<li><a href="https://scipy.org/">SciPy</a></li>
+							<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+
+
+
+						<li><label>Social</label></li>
+							<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+							<li><a href="https://github.com/Nightwing52">github</a></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="./">Analytic Programmer</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li class="active"><a href="./category/articles.html">articles</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/About.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/Contact.html">Contact</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>The Halvorsen Attractor</h2>
+	<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+<h1>The Halvorsen Attractor</h1>
+<h2>Introduction</h2>
+<p>As mentioned in a previous article about the <a href="https://nightwing52.github.io/website/category/articles.html">Van der Pol oscillator</a>, attractors for a dynamical system can be quite complex. Today I want to talk about one of my favorite attractors: <strong>the Halvorsen attractor</strong>. It is an example of an <strong>autonomous system</strong> that displays <strong>chaotic</strong> behavior. The word autonomous here just means there is no explicit time dependence. The equations of motion only depend on the dependent variables. Chaotic means that the system will push away two initial conditions that start close to each other. For example, if I show the evolution for the initial conditions <span class="math">\((1.0, 2.0, 3.0)\)</span> and <span class="math">\((1.01, 2.0, 3.0)\)</span>, they may be close in the beginning, by over time the points take completely different paths: to the point of being unrecognizable. Autonomous systems in one and two dimensions are actually incapable of displaying chaos, but in three dimensions, chaotic behavior has enough room to flourish.</p>
+<p><img src="https://media.sketchfab.com/models/d404f0b1fe954ff6abdaf3214b58438d/thumbnails/6331120393524f68b10c80cb8b325ee3/1920x1080.jpeg" alt="Artistic rendition of Halvorsen attractor." class="center" width="90%"></p>
+<h2>Construction</h2>
+<p>The Halvorsen system is governed by the following system of ordinary differential equations.
+</p>
+<div class="math">$$
+\begin{align*}
+\frac{dx}{dt} &amp; = -ax-4y-4z-y^2 \\
+\frac{dy}{dt} &amp; = -ay-4z-4x-z^2 \\
+\frac{dz}{dt} &amp; = -az-4x-4y-x^2
+\end{align*}$$</div>
+<p>Where the parameter <span class="math">\(a\)</span> is a positive number. In my code, I will take it to be <span class="math">\(1.4\)</span>. </p>
+<p>How can we make a computer model of the Halvorsen attractor? An attractor is defined as the set the system tends to evolve towards, so what we do to make an approximation is to evolve a collection of different initial conditions and plot what happens after a certain time. Our pseudocode looks something like this.</p>
+<div class="highlight"><pre><span></span><code>    #<span class="nv">initial</span> <span class="nv">data</span>
+    <span class="nv">init_conds</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nv">generate</span> <span class="nv">array</span> <span class="nv">of</span> <span class="nv">initial</span> <span class="nv">conditions</span><span class="o">&gt;</span>
+
+    #<span class="nv">solving</span>
+    <span class="nv">sols</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nv">integrate</span> <span class="nv">list</span> <span class="nv">of</span> <span class="nv">initial</span> <span class="nv">conditions</span> <span class="nv">with</span> <span class="nv">odeint</span><span class="o">&gt;</span>
+
+    #<span class="nv">setup</span>
+    <span class="nv">lines</span> <span class="o">=</span> []
+    <span class="nv">sols</span> <span class="o">=</span> <span class="nv">np</span>.<span class="nv">transpose</span><span class="ss">(</span><span class="nv">sols</span><span class="ss">)</span>
+    <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">0</span>, <span class="nv">len</span><span class="ss">(</span><span class="nv">sols</span><span class="ss">)</span>, <span class="mi">3</span><span class="ss">)</span>:
+        <span class="nv">x</span>, <span class="nv">y</span>, <span class="nv">z</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nv">solutions</span> <span class="nv">after</span> <span class="nv">t</span><span class="o">=</span><span class="mi">5</span><span class="o">&gt;</span>
+        <span class="nv">lines</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">np</span>.<span class="nv">column_stack</span><span class="ss">(</span>[<span class="nv">x</span>, <span class="nv">y</span>, <span class="nv">z</span>]<span class="ss">))</span>
+    <span class="nv">lc</span> <span class="o">=</span> <span class="nv">Line3DCollection</span><span class="ss">(</span><span class="nv">lines</span>, <span class="nv">colors</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">black</span><span class="s2">&quot;</span><span class="ss">)</span>
+</code></pre></div>
+
+<p>In Python, with the help of scipy, numpy, and matplotlib, we can get something that looks like this.</p>
+<p><img src="https://lh3.googleusercontent.com/nL6GlsiD3K0THRhA18vErV1UoDIG5F1TFtkf6z8VIP1SZ7LHdZC7GtGjJr3GOlKrxGMnuIOu7cmNretOltixeDcZax0_FyFHFIBwJBwEv7Y1tbQGa_PH-odhC56xJ463sGt13h_cykB1Te-i5K2bqyccq5LqH4F9Z4Ik5sSrbWygeFYqyt3_G3eeTuMQC0eAzIP4AV6iTAdY14NFJ0mAdVWSGEKMeQTlw8Eg7PL8Jha3_jTUaQ7kAdYym3NguZ3jEJ3MoiUi6Vh64waEv78OtkKfT-qZTmw6wk51SNik60T7mq64NJrMODl5fW7WucSOfGB6Yd9dPEHvrk1CutGH3meR33MzX9VB9UmUFpFuEv7ah4cwP4vQJ05m5DK-o3_e-sInt4J9x2xKX99FWE12M6v5bgCX4s-fduf1E-1cM6cmfbqVUblHlL1dolJJiMjpJGRdpIVevec3kf_1MSe7NG-dSbU9P5f25Zl3ksRRQgv6A3sMC6Q4MkGQJ11vkouETbc0-7x2yVUNiC6XS2Nr0BAgcEeGqj0hBPAq9LVwIHo4-EO0omwg-67t7dyBisEj_e3Rc6Q74eCzJ_AgxRa-h5bLpfn3QPzwilr21sEH9KhFIX0dDFtHdIHHiFBwlyWzgz-GRkoHiG9EF_X214O6yCkxjj9zYPmCoxTXDzqpyCEaRNUamUbb60wmg_6zjDUTF6_ImyKp7aR3HnpyRo0NTqTp=w640-h480-no?authuser=0" alt="Halvorsen attractor in Python." class="center"></p>
+<p>With some more effort, we can also <a href="https://youtu.be/S9uFhqxoKVg">animate the camera</a> to get a better look at it. It is a rather technical process, so my code is posted <a href="https://github.com/Nightwing52/dynamical_systems">here</a> under <em>halvorsen</em>. Some ideas to modify the code would be to add more lines, make the camera take a path through space, turn the attractor into a mesh in various ways, etc. Once you are familiar with the code, it is very simple to change the code to get other attractors. This <a href="https://www.dynamicmath.xyz/strange-attractors/">site</a> has a list of other attractors you could experiment with. </p>
+<iframe width="90%" height="420" 
+src="https://www.youtube.com/embed/S9uFhqxoKVg" class="center">
+</iframe>
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+	<hr/>
+	<h6>Written by <a href="./author/tyler-russell.html">Tyler Russell</a> in <a href="./category/articles.html">articles</a> on Wed 25 August 2021.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="https://www.python.org/">Python.org</a></li>
+									<li><a href="https://numpy.org/">NumPy</a></li>
+									<li><a href="https://scipy.org/">SciPy</a></li>
+									<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+									<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+									<li><a href="https://github.com/Nightwing52">github</a></li>
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="./theme/js/jquery.js"></script>
+		<script src="./theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>
