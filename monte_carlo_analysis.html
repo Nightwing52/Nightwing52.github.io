@@ -1,0 +1,253 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Analytic Programmer</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tyler Russell">
+
+		<link rel="stylesheet" href="./theme/css/foundation.css" />
+		<link rel="stylesheet" href="./theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="./theme/css/custom.css" />
+
+
+		<script src="./theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Analytic&nbsp;Programmer</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href=".">Home</a></li>
+						<li><label>Categories</label></li>
+							<li class="active"><a href="./category/articles.html">articles</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="https://www.python.org/">Python.org</a></li>
+							<li><a href="https://numpy.org/">NumPy</a></li>
+							<li><a href="https://scipy.org/">SciPy</a></li>
+							<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+
+
+
+						<li><label>Social</label></li>
+							<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+							<li><a href="https://github.com/Nightwing52">github</a></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="./">Analytic Programmer</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li class="active"><a href="./category/articles.html">articles</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/About.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/Contact.html">Contact</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>Monte Carlo Analysis</h2>
+	<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<h2>Outline</h2>
+<p>Analysis of the stock market can be an incredibly complex subject. Markets go up and down, the country goes through recessions, our gains are subject to inflation, and so much more. It seems too complex to model exactly, but it would be nice if we could get an idea of what our returns would be. </p>
+<p>In order to avoid the complexities of modeling every interaction possible we instead use probability and statistics to develop a distribution of possible stock and bond yields and inflation rates and simulate a large number of possible market conditions until we form a distribution of returns. This strategy of simulating a large number of possible outcomes is called the <a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo Method</a> and used very often in physics and mathematics. </p>
+<h2>Historical Data</h2>
+<p>It is often said that history repeats itself, and for modeling the stock market it is not a bad start. For this project we will be using inflation data from <a href="https://fred.stlouisfed.org/series/FPCPITOTLZGUSA">FRED</a> that has data from 1960-2020 and the returns of the S&amp;P 500 from <a href="https://www.macrotrends.net/2526/sp-500-historical-annual-returns">macrotrends</a> with data from 1928-2022. We start by plotting the historical data.</p>
+<p><img src="/images/historic_data.png" class="center" alt="Historic data."></p>
+<p>The historical data looks very complicated. It has stochastic ups and downs with no clear pattern. Things will look clearer when we plot the historical distribution of returns and inflation.</p>
+<p><img src="/images/historic_den.png" class="center" alt="Historic density."></p>
+<p>Neither of these distributions is a standard distribution like the normal, but it will be very useful to fit a slanted normal to the stock data and a normal to the inflation data. The slanted normal is a good assumption for the stocks because the S&amp;P 500 is made up of well-performing companies and would not be in the index if they performed poorly on average. We use the last 30 years of data (orange) and have the following fits (blue).</p>
+<p><img src="/images/fit_data.png" class="center" alt="Fit data."></p>
+<p>For the stocks we have a return mean of 9.3% with STD dev 4.1% and for the inflation we have a mean rate of 2.3% with STD dev 1.0%. Although it is not a perfect fit, we are sacrificing accuracy for a more interpretable model. For example, with this model we can easily modify parameters like the mean, shape, and standard deviation to model more adverse market conditions. If we had simply used a black box by constructing the density of the historical data we would not have this luxery. Now we are ready to perform the simulation.</p>
+<h2>Simulation</h2>
+<p>Let <span class="math">\(n\)</span> be the number of years we wish to simulate and <span class="math">\(m\)</span> the number of simulations to run. We construct a matrix of returns <span class="math">\(R\)</span> and inflation rates <span class="math">\(I\)</span> of size <span class="math">\(n \times m\)</span>. Converting them to percentages and adding <span class="math">\(1\)</span>, the total return on each simulation <span class="math">\(s_i\)</span> is the initial amount multiplied by the product of all elements in the in the <span class="math">\(i\)</span>-th column of <span class="math">\(R\)</span>. The same process is done to the matrix <span class="math">\(I\)</span> and taking the reciprocal. Multiply the two results for each simulation to get the final answer. Letting <span class="math">\(\Pi_i A\)</span> denote the product of all elements in the <span class="math">\(i\)</span>-th column our formula for <span class="math">\(s_i\)</span> is 
+</p>
+<div class="math">$$s_i = A_0\left(\Pi_i (1+R) \cdot 1/\Pi_i (1+I) \right) .$$</div>
+<p>
+These operations are vectorized in <em>numpy</em> and runs very quickly. The time complexity is <span class="math">\(O(mn)\)</span>. As we generally fix the number of years <span class="math">\(m\)</span> (or at the very least is bounded), it behaves like a constant the time complexity is more akin to <span class="math">\(O(n)\)</span>, which is incredibly fast. </p>
+<p>We are now ready to plot the return of distributions. Let <span class="math">\(A_0=1\)</span> and we have the following plot.</p>
+<p><img src="/images/return_den.png" class="center" alt="Return distribution."></p>
+<p>We can see that sometimes we end up losing money but happens rarely. Calculating the moments gives us a better idea than the picture. We end up with a mean, standard deviation, and skew of 7.34, 7.73, and 3.49. This shows that we are expected to make a <span class="math">\(7.34\)</span> times on our investment. The standard deviation tells us that the returns are not very well centered (it is large in comparision to the mean). The positive skew then tells us that a lot of the mass is on the left side of the mean (which is unfortunate). In fact, running the simulation several times gives that approximately <span class="math">\(62.84 \pm 0.15 \%\)</span> of the distribution lies to the left of the mean. This analysis lets us say that we are expected to make <span class="math">\(7.34\)</span> times on our investment, and although we can do better, we ore often do worse. The advantage of doing more simulations is that we can better picture the distribution of returns and give confidence intervals to our statistics. Although it sounds worrying that we have a right skewed distribution, adding other assets like bonds can help stabalize the fluctuations in the stocks.</p>
+<h2>Conclusion</h2>
+<p>Although this is a simple model with historical data, there are many things that can be added quite easily to this simulation. One can add new asset classes like bonds and analyze how stock-bond allocation impacts the return distribution. Another useful addition would be to pull a certain amount every year like a retirement acount. Changing shape parameters on our distributions can give us more intution on how much an impact each one has on our returns. To experiment with your own designs you can clone the repository at my <a href="https://github.com/Nightwing52/website">Github</a>. Enjoy!</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+	<hr/>
+	<h6>Written by <a href="./author/tyler-russell.html">Tyler Russell</a> in <a href="./category/articles.html">articles</a> on Wed 04 May 2022.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="https://www.python.org/">Python.org</a></li>
+									<li><a href="https://numpy.org/">NumPy</a></li>
+									<li><a href="https://scipy.org/">SciPy</a></li>
+									<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+									<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+									<li><a href="https://github.com/Nightwing52">github</a></li>
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="./theme/js/jquery.js"></script>
+		<script src="./theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>
