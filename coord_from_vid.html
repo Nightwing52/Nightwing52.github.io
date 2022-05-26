@@ -1,0 +1,252 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Analytic Programmer</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tyler Russell">
+
+		<link rel="stylesheet" href="./theme/css/foundation.css" />
+		<link rel="stylesheet" href="./theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="./theme/css/custom.css" />
+
+
+		<script src="./theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Analytic&nbsp;Programmer</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href=".">Home</a></li>
+						<li><label>Categories</label></li>
+							<li class="active"><a href="./category/articles.html">articles</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="https://www.python.org/">Python.org</a></li>
+							<li><a href="https://numpy.org/">NumPy</a></li>
+							<li><a href="https://scipy.org/">SciPy</a></li>
+							<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+
+
+
+						<li><label>Social</label></li>
+							<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+							<li><a href="https://github.com/Nightwing52">github</a></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="./">Analytic Programmer</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li class="active"><a href="./category/articles.html">articles</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/About.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="./pages/Contact.html">Contact</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>Coordinates from Video</h2>
+	<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<h2>The Problem</h2>
+<p>In experiments we often capture video and would like to extract information like coordinates to build models. In this article we walk through the process of doing this with a pendulum. Video will be collected via a phone, preprocessed, and then fed to a Python script to extract usable coordinates. Afterwards, the data is fit to a sine curve. Code and output will be found at <a href="https://github.com/Nightwing52/dynamical_systems">this link</a> under the folder <em>coord_from_vid</em>.</p>
+<h2>Processing</h2>
+<p>After data collection, we need to preprocess the data to make it easier to analyze. In our case, we crop the video, grayscale everything excluding the color yellow, shift yellow to green, and downscale the video to <span class="math">\(160 \times 90\)</span>. The first steps can be done in <em>Kdenlive</em> or any other video editing software and the last can be done using <em>ffmpeg</em>. The result is shown in <em>out.mp4</em>.</p>
+<p><img src="/images/coord_from_vid/frame.jpg" class="center" alt="Processed frame."></p>
+<p>Now it is possible to extract the coordinates. For this project we are interested in extracting the x center of mass coordinate. The code that will perform this operation is contained in <em>process.py</em>.</p>
+<p>The idea behind this algorithm is that the only sizable amount of green in each frame is located at the pendulum's position. If it is possible to determine which pixels are green then we simply apply the center of mass formula (assuming constant density) to find the center of mass of the pendulum at any given moment. </p>
+<p>Since our video is greyscale in the background and green where the pendulum is, we introduce the following metric between pixels: </p>
+<div class="math">$$d(p_1, p_2) = \frac{(r_1-r_2)^2+(g_1-g_2)^2+(b_1-b_2)^2}{3 \cdot 255^2},$$</div>
+<p>where each pixel is a <span class="math">\((r, g, b)\)</span> tuple with color values in the range 0 to 255. The denominator in the metric is simply a normalizing factor. </p>
+<p>The algorithm can be written quickly. For every frame, scan the image and add the green pixels to the center of mass. Record the center of mass into a file. Repeat for every frame. This algorithm will run into <span class="math">\(O(nmK)\)</span> time where <span class="math">\(n\)</span> and <span class="math">\(m\)</span> and the length and width of the video and <span class="math">\(K\)</span> is the number of frames. An optimization will be discussed in the conclusion.</p>
+<p>After running the code we get processed data that looks like this. Not too bad!</p>
+<p><img src="/images/coord_from_vid/data.png" class="center" alt="Coordinate data."></p>
+<h2>Fitting</h2>
+<p>To finish we fit a sine model of the form <span class="math">\(x(t) = A\sin(Bt+C)+D\)</span> to the data. We estimate the parameters <span class="math">\([A, B, C, D] = [35.0, 3.77, 0.0, 85.0]\)</span> to aid the optimization. We recieve <span class="math">\([A, B, C, D] = [-31.71, 3.77, 0.79, 85.41]\)</span> with standard deviations given by <span class="math">\([0.085, 0.00062, 0.0055, 0.061]\)</span> which are very reasonable. The plot also shows good agreement. Code is found in <em>fit.py</em>.</p>
+<p><img src="/images/coord_from_vid/fit.png" class="center" alt="Fit data."></p>
+<h2>Conclusion</h2>
+<p>Although things like video analysis seem daunting at first they are actually very manageable. They also have a lot of real life applications in science and engineering. </p>
+<p>As mentioned before there is an optimization that did not occur to me until I wrote this <a href="https://nightwing52.github.io/how_far_to_metro.html">article</a>. The idea is that the center of mass moves in a roughly continuous manner so once you know where the blob is at one moment it is easy to calculate the center of mass of the next frame (the low speed of the pendulum and the camera speed ensures this). Given a green pixel, perform a breadth first search to find all other green pixels and record the center of mass. To compute the next center of mass simply start the breadth first search at the last center of mass. </p>
+<p>The complexity is a little tricky to analyze. The optimization ensures that the program only goes over pixels in green. This is still technically <span class="math">\(O(nmK)\)</span>. However, if the proportion of pixels in green was to get smaller and smaller it runs approximately in <span class="math">\(O(K)\)</span> time which is the case when we accurately mark the center of mass directly. </p>
+<p>This is just the starting point for other projects. For example, one could combine this with the algorithm presented in this <a href="https://www.pnas.org/doi/10.1073/pnas.1517384113">paper</a>. An ODE model would allow one to go beyond fitting a specific function to learning a model that hopefully generalizes to other conditions. Here is the <a href="https://github.com/Nightwing52/dynamical_systems">code</a> and have fun!</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+	<hr/>
+	<h6>Written by <a href="./author/tyler-russell.html">Tyler Russell</a> in <a href="./category/articles.html">articles</a> on Thu 26 May 2022.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="https://www.python.org/">Python.org</a></li>
+									<li><a href="https://numpy.org/">NumPy</a></li>
+									<li><a href="https://scipy.org/">SciPy</a></li>
+									<li><a href="https://matplotlib.org/">Matplotlib</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+									<li><a href="https://twitter.com/tyler_russell52">Twitter</a></li>
+									<li><a href="https://github.com/Nightwing52">github</a></li>
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="./theme/js/jquery.js"></script>
+		<script src="./theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>
