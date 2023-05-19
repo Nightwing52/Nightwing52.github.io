@@ -73,6 +73,47 @@ h3 {
     display: inline;
 }
 
+/* form styling */
+form, .form-element {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+}
+
+.form-element {
+    padding-bottom: 2em;
+    text-align: center;
+    width: 60%;
+}
+
+input, textarea {
+    box-sizing: border-box;
+    border: solid black 2px;
+    border-radius: 4px;
+}
+
+input:focus, textarea:focus {
+    background-color: #a7ffff;
+}
+
+textarea {
+    resize: none;
+}
+
+/* button styling */
+button {
+    transition-duration: 0.5s;
+    padding: 0.8em 1.2em;
+    border: #a7ffff solid 2px;
+    background-color: white;
+    font-size: 1.5em;
+}
+
+button:hover {
+    border-color: white;
+    background-color: #a7ffff;
+}
+
 /* responsive media queries */
 @media only screen and (max-width: 800px){
     .project-card img{
