@@ -120,6 +120,11 @@ button {
     font-size: 1.5em;
 }
 
+/* footer styling */
+footer {
+    text-align: center;
+}
+
 button:hover {
     border-color: white;
     background-color: #a7ffff;
