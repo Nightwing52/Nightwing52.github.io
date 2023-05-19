@@ -135,4 +135,8 @@ button:hover {
     .grid-container {
         grid-template-columns: 1fr;
     }
+
+    .form-element {
+        width: 80%;
+    }
 }
