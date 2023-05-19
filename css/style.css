@@ -7,4 +7,10 @@ body {
 
 h1 {
   font-family: 'Lora', serif;
+  text-decoration: underline;
+  text-align: center;
+}
+
+#about {
+    text-align: center;
 }
