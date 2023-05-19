@@ -3,6 +3,8 @@
 
 body {
   font-family: 'Ubuntu', sans-serif;
+  margin: 0px;
+  padding: 0px;
 }
 
 h1 {
@@ -11,6 +13,45 @@ h1 {
   text-align: center;
 }
 
+h3 {
+    font-family: 'Lora', serif;
+    text-align: center;
+}
+
 #about {
     text-align: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 2em; /* Gap between grid items */
+}
+
+.project-card {
+    padding: 2em;
+    border: solid #449999 0.5rem;
+}
+
+.project-card img {
+    width: 75%;
+    height: 12rem;
+    display: block;
+    margin: auto;
+    opacity: 50%;
+}
+
+.project-card:hover img {
+    opacity: 100%;
+}
+
+@media only screen and (max-width: 800px){
+    .project-card img{
+        width: 100%;
+        padding: 0px;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
 }
