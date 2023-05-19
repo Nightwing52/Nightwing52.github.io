@@ -75,6 +75,8 @@ h3 {
 
 /* form styling */
 form, .form-element {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.1em;
     display: flex;
     margin: auto;
     flex-direction: column;
@@ -98,6 +100,15 @@ input:focus, textarea:focus {
 
 textarea {
     resize: none;
+}
+
+label {
+    text-align: center;
+}
+
+label::after {
+    content: " *";
+    color: #ffa7a7;
 }
 
 /* button styling */
