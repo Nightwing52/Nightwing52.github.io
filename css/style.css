@@ -160,6 +160,10 @@ button:hover {
     background-color: #a7ffff;
 }
 
+.footer-item:hover img {
+    transform: scale(1.2);
+}
+
 /* responsive media queries */
 @media only screen and (max-width: 800px){
     .project-card img{
