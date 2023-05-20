@@ -27,6 +27,36 @@ h3 {
     text-align: center;
 }
 
+/* header styling */
+header {
+    height: 50em;
+    background-image: linear-gradient(to left, #003d3d, #a7ffff);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0em;
+}
+
+.hero-card {
+    height: 50em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header a {
+    text-decoration:none;
+    color: black;
+}
+
+.hero-image {
+    background-image: url("/img/julia_poster.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
 /* featured projects grid */
 .grid-container {
     display: grid;
@@ -143,5 +173,19 @@ button:hover {
 
     .form-element {
         width: 80%;
+    }
+
+    header {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero-card {
+        height: auto;
+    }
+
+    .hero-image{
+        height: 30em;
     }
 }
