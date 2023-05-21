@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Project</title>
     <link rel="stylesheet" href="/css/style.css"> <!-- External CSS file -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> <!-- animate on scroll -->
 </head>
 <body>
     <header>
@@ -27,15 +28,15 @@
             <h1>About</h1>
             <div class="about-card">
                 <h3>My name is Tyler Russell and I am a math graduate from University of Texas at Tyler.</h3>
-                <div class="about-image" style="background-image:url(/img/ut_tyler.png)"></div>
+                <div class="about-image" data-aos="fade-left" style="background-image:url(/img/ut_tyler.png)"></div>
             </div>
             <div class="about-card">
-                <div class="about-image-left" style="background-image:url(/img/engagement.jpg)"></div>
+                <div class="about-image-left" data-aos="fade-right" style="background-image:url(/img/engagement.jpg)"></div>
                 <h3>I have a loving fiance in Mexico City.</h3>
             </div>
             <div class="about-card">
                 <h3>My hobby projects often involve computation and simulation.</h3>
-                <div class="about-image" style="background-image:url(/img/halvorsen.png)"></div>
+                <div class="about-image" data-aos="fade-left" style="background-image:url(/img/halvorsen.png)"></div>
             </div>
             
         </section>
@@ -43,22 +44,22 @@
             <h1>Featured Projects</h1>
             <div class="grid-container">
                 <div class="project-card">
-                    <img src="/img/frame.jpg" alt="Picture of pendulum swinging.">
+                    <img data-aos="zoom-in" src="/img/frame.jpg" alt="Picture of pendulum swinging.">
                     <h3>Coordinates from Video</h3>
                     <p>In experiments we often capture video and would like to extract information like coordinates to build models. In this article we walk through the process of doing this with a pendulum. Video will be collected via a phone, preprocessed, and then fed to a Python script to extract usable coordinates. Afterwards, the data is fit to a sine curve. Code and output will be found at this link under the folder coord_from_vid.</p>
                 </div>
                 <div class="project-card">
-                    <img src="/img/metro.jpg" alt="Colorful Mexico City metro train."> 
+                    <img data-aos="zoom-in" data-aos-delay="300" src="/img/metro.jpg" alt="Colorful Mexico City metro train."> 
                     <h3>How far to the metro?</h3>
                     <p>Mexico City has one of the largest metro systems in North America. Using the metro, one can go just about anywhere in the city for five pesos. It is a truly massive system with 195 stations. In this project we wish to calculate the distance (as the crow flies) to the nearest metro station at any point in the city.</p>
                 </div>
                 <div class="project-card">
-                    <img src="/img/scatter_matrix.png" alt="Matrix of coorelation plots between stocks, bonds, inflation, and time.">
+                    <img data-aos="zoom-in" src="/img/scatter_matrix.png" alt="Matrix of coorelation plots between stocks, bonds, inflation, and time.">
                     <h3>Stock Bond Analysis</h3>
                     <p>Stocks and bonds are often combined to create more balanced portfolios. Since stocks and bonds are often negatively coorelated, poor performance in stocks can partially be set off by bonds and vise versa. In this project we will quantify this effect and analyze the tradeoff between stocks and bonds.</p>
                 </div>
                 <div class="project-card">
-                    <img src="/img/historic_data.png" alt="Historical data of the S&P 500.">
+                    <img data-aos="zoom-in" data-aos-delay="300" src="/img/historic_data.png" alt="Historical data of the S&P 500.">
                     <h3>Monte Carlo Analysis</h3>
                     <p>Analysis of the stock market can be an incredibly complex subject. Markets go up and down, the country goes through recessions, our gains are subject to inflation, and so much more. It seems too complex to model exactly, but it would be nice if we could get an idea of what our returns would be.</p>
                 </div>
@@ -163,5 +164,9 @@
     </footer>
 
     <script src="/js/script.js"></script> <!-- External JavaScript file -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- animate on scroll -->
+    <script>
+        AOS.init({once:true});
+    </script>
 </body>
 </html>
