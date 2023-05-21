@@ -57,6 +57,26 @@ header a {
     background-position: center;
 }
 
+/* about styling */
+.about-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content:center;
+}
+
+.about-card h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-image, .about-image-left {
+    height: 20em;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
 /* featured projects grid */
 .grid-container {
     display: grid;
