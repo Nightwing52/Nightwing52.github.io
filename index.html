@@ -8,6 +8,25 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> <!-- animate on scroll -->
 </head>
 <body>
+    <nav>
+        <!-- Navigation menu or links go here -->
+        <!-- TODO make navbar -->
+        <div class="navbar">
+            <a href="#" class="logo">Logo</a>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </nav>
+    
     <header>
         <!-- Header content goes here -->
         <div class="hero-card">
@@ -16,11 +35,6 @@
         </div>
         <div class="hero-image"></div>
     </header>
-
-    <nav>
-        <!-- Navigation menu or links go here -->
-        <!-- TODO make navbar -->
-    </nav>
 
     <main>
         <!-- Main content of the page goes here -->
@@ -169,6 +183,7 @@
 
     <script src="/js/script.js"></script> <!-- External JavaScript file -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- animate on scroll -->
+    <script src="/js/nav.js"></script> <!-- navbar -->
     <script>
         AOS.init({once:true});
     </script>
