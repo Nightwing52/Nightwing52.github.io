@@ -32,6 +32,10 @@ nav {
     margin: 0 10px;
 }
 
+.nav-links li:hover {
+    text-decoration: underline;
+}
+
 .nav-links a {
     color: #fff;
     text-decoration: none;
@@ -66,6 +70,7 @@ nav {
 
     .nav-links li {
         opacity: 1;
+        padding-bottom: 20px;
     }
 
     .burger {
