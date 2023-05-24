@@ -3,7 +3,10 @@
 
 /* navbar styling */
 nav {
-    background-color: #333;
+    background-color: black;
+    position: sticky;
+    top: 0;
+    z-index: 1; /* navbar should display over all other elements */
 }
 
 .navbar {
@@ -52,7 +55,7 @@ nav {
         right: 0;
         height: 92vh;
         top: 8vh;
-        background-color: #333;
+        background-color: black;
         display: flex;
         flex-direction: column;
         align-items: center;
