@@ -5,7 +5,7 @@
       
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css">
       <link rel="stylesheet" href="/css/theme.css">
-     
+      <link rel="stylesheet" href="/css/nav.css">
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
@@ -16,6 +16,25 @@
 	margin-right: auto;
 }
 </style>
+
+<nav>
+  <!-- Navigation menu or links go here -->
+  <div class="navbar">
+      <a href="#" class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg></a>
+      <ul class="nav-links">
+        <li><a href="/index.html">Home</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+</nav>
+
 <h2 class="mume-header" id="the-problem">The Problem</h2>
 
 <p>In experiments we often capture video and would like to extract information like coordinates to build models. In this article we walk through the process of doing this with a pendulum. Video will be collected via a phone, preprocessed, and then fed to a Python script to extract usable coordinates. Afterwards, the data is fit to a sine curve. Code and output will be found at <a href="https://github.com/Nightwing52/dynamical_systems">this link</a> under the folder <em>coord_from_vid</em>.</p>
@@ -53,5 +72,5 @@
     
     
     
-  
+    <script src="/js/nav.js"></script>
     </body></html>

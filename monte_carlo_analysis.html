@@ -5,6 +5,7 @@
       
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css">
       <link rel="stylesheet" href="/css/theme.css">
+      <link rel="stylesheet" href="/css/nav.css">
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
@@ -15,6 +16,25 @@
 	margin-right: auto;
 }
 </style>
+
+<nav>
+  <!-- Navigation menu or links go here -->
+  <div class="navbar">
+      <a href="#" class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg></a>
+      <ul class="nav-links">
+        <li><a href="/index.html">Home</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+</nav>
+
 <h2 class="mume-header" id="outline">Outline</h2>
 
 <p>Analysis of the stock market can be an incredibly complex subject. Markets go up and down, the country goes through recessions, our gains are subject to inflation, and so much more. It seems too complex to model exactly, but it would be nice if we could get an idea of what our returns would be.</p>
@@ -51,5 +71,5 @@ These operations are vectorized in <em>numpy</em> and runs very quickly. The tim
     
     
     
-  
+  <script src="/js/nav.js"></script>
     </body></html>
