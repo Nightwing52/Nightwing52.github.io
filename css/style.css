@@ -64,6 +64,7 @@ header a {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    opacity: 0.6;
 }
 
 /* about styling */
