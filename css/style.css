@@ -6,6 +6,7 @@ body {
   font-family: 'Ubuntu', sans-serif;
   margin: 0px;
   padding: 0px;
+  line-height: 1.4rem;
 }
 
 section {
@@ -16,11 +17,14 @@ h1 {
   font-family: 'Lora', serif;
   text-decoration: underline;
   text-align: center;
+  font-size: 2.5rem;
+  line-height: 2.3rem;
 }
 
 h3 {
     font-family: 'Lora', serif;
     text-align: center;
+    font-size: 1.25rem;
 }
 
 #about {
@@ -29,7 +33,7 @@ h3 {
 
 /* header styling */
 header {
-    height: 50em;
+    height: 100vh;
     background-image: linear-gradient(to left, #003d3d, #a7ffff);
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -37,12 +41,17 @@ header {
 }
 
 .hero-card {
-    height: 50em;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.hero-card p {
+    font-size: 1.4rem;
+    margin-left: 3vw;
+    margin-right: 3vw;
 }
 
 header a {
@@ -62,6 +71,8 @@ header a {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content:center;
+    margin-left: 25vw;
+    margin-right: 25vw;
 }
 
 .about-card h3 {
@@ -73,8 +84,12 @@ header a {
 .about-image, .about-image-left {
     height: 20em;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: left;
     background-size: contain;
+}
+
+.about-image-left {
+    background-position: right;
 }
 
 /* featured projects grid */
@@ -193,6 +208,11 @@ button:hover {
     .project-card img{
         width: 100%;
         padding: 0px;
+    }
+
+    .about-card {
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .grid-container {
