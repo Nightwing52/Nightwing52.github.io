@@ -29,7 +29,7 @@ h3 {
 
 /* header styling */
 header {
-    height: 50em;
+    height: 100vh;
     background-image: linear-gradient(to left, #003d3d, #a7ffff);
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -37,7 +37,6 @@ header {
 }
 
 .hero-card {
-    height: 50em;
     text-align: center;
     display: flex;
     flex-direction: column;
