@@ -98,6 +98,8 @@ header a {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two equal columns */
     gap: 2em; /* Gap between grid items */
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 .project-card {
@@ -218,6 +220,8 @@ button:hover {
 
     .grid-container {
         grid-template-columns: 1fr;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .form-element {
